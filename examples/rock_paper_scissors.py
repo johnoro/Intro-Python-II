@@ -31,28 +31,18 @@ def computer_win():
 rps = [0, 'rock', 'paper', 'scissors']
 
 def rpsgame(user, comp):
+	user = rps[user]
+	comp = rps[comp]
 	def printResult(result): print(f'Computer chose {comp}...{result}')
 
 	if user == comp:
 		printResult(tie())
-    
-	elif rps[user] == 'rock':
-		if rps[comp] == 'paper':
-			printResult(computer_win())
-		else:
-			printResult(user_win())
-	
-	elif rps[user] == 'paper':
-		if rps[comp] == 'rock':
-			printResult(user_win())
-		else:
-			printResult(computer_win())
-	
-	# user selected scissors
-	elif rps[comp] == 'rock':
-		printResult(computer_win())
-	else:
+	elif (user == 'rock' and comp == 'scissors') \
+			or (user == 'paper' and comp == 'rock') \
+			or (user == 'scissors' and comp == 'paper'):
 		printResult(user_win())
+	else:
+		printResult(computer_win())
 
 	print()
 
