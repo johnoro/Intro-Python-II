@@ -6,6 +6,14 @@ class Room:
     self.name = name
     self.description = description
     self.items = items
+    self.dirs = {'n': None, 's': None, 'w': None, 'e': None}
 
   def __str__(self):
-    return self.name
+    dirs = [ d for d in self.dirs if self.dirs[d] is not None ]
+    return f"{self.name}\nAvailable directions: {','.join(dirs)}"
+
+  def getDir(self, direction):
+    return self.dirs[direction]
+
+  def setDir(self, direction, room):
+    self.dirs[direction] = room
