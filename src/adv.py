@@ -8,7 +8,7 @@ foyer = 'foyer'
 overlook = 'overlook'
 narrow = 'narrow'
 treasure = 'treasure'
-room = {
+rooms = {
 	outside: Room(outside, 'Outside Cave Entrance',
 								'North of you, the cave mount beckons.'),
 	foyer: Room(foyer, 'Foyer', '''Dim light filters in from the south. Dusty
@@ -24,21 +24,21 @@ earlier adventurers. The only exit is to the south.'''),
 }
 
 # Link rooms together
-room[outside].setDir('n', foyer)
-room[foyer].setDir('s', outside)
-room[foyer].setDir('n', overlook)
-room[foyer].setDir('e', narrow)
-room[overlook].setDir('w', foyer)
-room[narrow].setDir('w', foyer)
-room[narrow].setDir('n', treasure)
-room[treasure].setDir('s', narrow)
+rooms[outside].setDir('n', foyer)
+rooms[foyer].setDir('s', outside)
+rooms[foyer].setDir('n', overlook)
+rooms[foyer].setDir('e', narrow)
+rooms[overlook].setDir('w', foyer)
+rooms[narrow].setDir('w', foyer)
+rooms[narrow].setDir('n', treasure)
+rooms[treasure].setDir('s', narrow)
 
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
-pc = Player(room[outside])
+pc = Player(rooms[outside])
 
 # Write a loop that:
 #
@@ -53,13 +53,16 @@ pc = Player(room[outside])
 while True:
 	print(f'\n{pc.room}')
 	print(pc.room.description)
-	act = input('Enter a cardinal direction (n, s, w, e) or q to quit: ')
+	args = input('Enter a cardinal direction (n, s, w, e) or q to quit: ')
+	args = args.lower().split()
+	act = args[0]
+	
 	if act == 'q':
 		print("\nYou've exited the game. Goodbye.")
 		break
 	if act in 'nswe':
 		try:
-			pc.room = room[pc.room.getDir(act)]
+			pc.room = rooms[pc.room.getDir(act)]
 		except KeyError:
 			print("The room doesn't seem to have an exit in that direction.")
 	else:

@@ -10,7 +10,10 @@ class Room:
 
   def __str__(self):
     dirs = [ d for d in self.dirs if self.dirs[d] is not None ]
-    return f"{self.name}\nAvailable directions: {','.join(dirs)}"
+    dirs = f"\nAvailable directions: {', '.join(dirs)}"
+    items = [i.name for i in self.items]
+    items = f"\nItems: {', '.join(items)}" if len(items) > 0 else ''
+    return self.name + items + dirs
 
   def getDir(self, direction):
     return self.dirs[direction]
