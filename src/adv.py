@@ -1,4 +1,4 @@
-from players.player import Player
+from characters.player import Player
 from data.rooms import rooms, outside
 from data.actions import actions, get, drop
 from data.commands import commands, inventory, q
