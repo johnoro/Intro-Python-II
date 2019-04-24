@@ -5,7 +5,8 @@ narrow = 'narrow'
 treasure = 'treasure'
 
 from data.items import quantumMicroscope
-from room import Room
+from rooms.room import Room
+
 # Declare all the rooms
 rooms = {
 	outside: Room(outside, 'Outside Cave Entrance',

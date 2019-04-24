@@ -1,13 +1,9 @@
-from player import Player
+from players.player import Player
 from data.rooms import rooms, outside
 from data.actions import actions, get, drop
 from data.commands import commands, inventory, q
 from helpers.general import formatList
-from helpers.items import names, move
-
-#
-# Main
-#
+from helpers.items import names, find
 
 # Make a new player object that is currently in the 'outside' room.
 pc = Player(rooms[outside])
@@ -36,11 +32,17 @@ while True:
 	if len(args) == 2:
 		obj = args[1].lower()
 		if act in actions[get]:
-			removed = pc.room.removeItem(obj)
-			move(pc.items, removed, obj)
+			found = find(pc.room.items, obj)
+			if found is not None:
+				found.onTake(pc.room, pc.items)
+			else:
+				print(f'{obj} not found.')
 		elif act in actions[drop]:
-			removed = pc.removeItem(obj)
-			move(pc.room.items, removed, obj)
+			found = find(pc.items, obj)
+			if found is not None:
+				found.onDrop(pc, pc.room.items)
+			else:
+				print(f'{obj} not found.')
 		else:
 			print(f'{act} is not a currently implemented action.')
 

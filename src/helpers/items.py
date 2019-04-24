@@ -1,15 +1,24 @@
 def names(items):
   return [i.name.lower() for i in items]
 
-def remove(items, name):
+def find(items, name):
   for i in items:
     if i.name == name:
-      items.remove(i)
       return i
   return None
 
-def move(items, item, obj):
+def remove(items, name):
+  found = find(items, name)
+  if found is not None:
+    items.remove(found)
+  return found
+
+def move(items, item, name):
   if item is None:
-    print(f'{obj} was not found.')
+    print(f'{name} was not found.')
   else:
     items.append(item)
+
+def removeAndMove(items, item, srcObj):
+  removed = srcObj.removeItem(item.name)
+  items.append(removed)
