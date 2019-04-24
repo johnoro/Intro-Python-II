@@ -21,7 +21,7 @@ pc = Player(rooms[outside])
 while True:
 	print(f'\n{pc.room}')
 	print(pc.room.description)
-	args = input('Enter a cardinal direction (n, s, w, e) or q to quit: ')
+	args = input('Enter a cardinal direction or q to quit: ')
 	args = args.lower().split()
 	try:
 		act = args[0]
@@ -33,14 +33,24 @@ while True:
 		obj = args[1].lower()
 		if act in actions[get]:
 			found = find(pc.room.items, obj)
+			obj = obj.capitalize()
 			if found is not None:
-				found.onTake(pc.room, pc.items)
+				taken = found.onTake(pc.room, pc.items)
+				if not taken:
+					print(f'{obj} cannot be taken.')
+				else:
+					print(f'{obj} taken.')
 			else:
 				print(f'{obj} not found.')
 		elif act in actions[drop]:
 			found = find(pc.items, obj)
+			obj = obj.capitalize()
 			if found is not None:
-				found.onDrop(pc, pc.room.items)
+				dropped = found.onDrop(pc, pc.room.items)
+				if not dropped:
+					print(f'{obj} cannot be dropped.')
+				else:
+					print(f'{obj} dropped.')
 			else:
 				print(f'{obj} not found.')
 		else:
