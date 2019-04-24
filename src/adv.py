@@ -27,6 +27,7 @@ while True:
 		act = args[0]
 	except IndexError:
 		print("It looks like you didn't enter anything parseable.")
+		continue
 
 	if act == 'q':
 		print("\nYou've exited the game. Goodbye.")
