@@ -13,12 +13,6 @@ def remove(items, name):
     items.remove(found)
   return found
 
-def move(items, item, name):
-  if item is None:
-    print(f'{name} was not found.')
-  else:
-    items.append(item)
-
 def removeAndMove(items, item, srcObj):
-  removed = srcObj.removeItem(item.name)
+  removed = remove(srcObj.items, item.name)
   items.append(removed)
