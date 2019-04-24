@@ -1,12 +1,8 @@
-from characters.player import Player
-from data.rooms import rooms, outside
 from data.actions import actions, get, drop
 from data.commands import commands, inventory, q
 from helpers.general import formatList
 from helpers.items import names, find
-
-# Make a new player object that is currently in the 'outside' room.
-pc = Player(rooms[outside])
+from data.characters import pc
 
 # Write a loop that:
 #
@@ -63,7 +59,8 @@ while True:
 		break
 	if act in 'nswe':
 		try:
-			pc.room = rooms[pc.room.getDir(act)]
+			newRoom = pc.room.getDir(act)
+			pc.move(newRoom)
 		except KeyError:
 			print("The room doesn't seem to have an exit in that direction.")
 	elif act in commands[inventory]:
