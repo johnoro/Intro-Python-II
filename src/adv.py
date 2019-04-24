@@ -1,5 +1,9 @@
 from player import Player
 from data.rooms import rooms, outside
+from data.actions import actions, get, drop
+from data.commands import commands, inventory, q
+from helpers.general import formatList
+from helpers.items import names, move
 
 #
 # Main
@@ -29,7 +33,20 @@ while True:
 		print("It looks like you didn't enter anything parseable.")
 		continue
 
-	if act == 'q':
+	if len(args) == 2:
+		obj = args[1].lower()
+		if act in actions[get]:
+			removed = pc.room.removeItem(obj)
+			move(pc.items, removed, obj)
+		elif act in actions[drop]:
+			removed = pc.removeItem(obj)
+			move(pc.room.items, removed, obj)
+		else:
+			print(f'{act} is not a currently implemented action.')
+
+		continue
+
+	if act in commands[q]:
 		print("\nYou've exited the game. Goodbye.")
 		break
 	if act in 'nswe':
@@ -37,6 +54,8 @@ while True:
 			pc.room = rooms[pc.room.getDir(act)]
 		except KeyError:
 			print("The room doesn't seem to have an exit in that direction.")
+	elif act in commands[inventory]:
+		print(f'Inventory: {formatList(names(pc.items))}')
 	else:
 		print("It looks like you didn't enter a cardinal direction.")
 
