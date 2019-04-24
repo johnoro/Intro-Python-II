@@ -1,8 +1,9 @@
 from data.actions import actions, get, drop
 from data.commands import commands, inventory, q
-from helpers.general import formatList
-from helpers.items import names, find
 from data.characters import pc
+from helpers.general import formatList
+from helpers.items import names
+from adventure.actions import handleGet, handleDrop
 
 # Write a loop that:
 #
@@ -28,27 +29,9 @@ while True:
 	if len(args) == 2:
 		obj = args[1].lower()
 		if act in actions[get]:
-			found = find(pc.room.items, obj)
-			obj = obj.capitalize()
-			if found is not None:
-				taken = found.onTake(pc.room, pc.items)
-				if not taken:
-					print(f'{obj} cannot be taken.')
-				else:
-					print(f'{obj} taken.')
-			else:
-				print(f'{obj} not found.')
+			handleGet(pc.items, obj, pc.room)
 		elif act in actions[drop]:
-			found = find(pc.items, obj)
-			obj = obj.capitalize()
-			if found is not None:
-				dropped = found.onDrop(pc, pc.room.items)
-				if not dropped:
-					print(f'{obj} cannot be dropped.')
-				else:
-					print(f'{obj} dropped.')
-			else:
-				print(f'{obj} not found.')
+			handleDrop(pc.room.items, obj, pc)
 		else:
 			print(f'{act} is not a currently implemented action.')
 
