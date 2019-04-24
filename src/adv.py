@@ -23,7 +23,10 @@ while True:
 	print(pc.room.description)
 	args = input('Enter a cardinal direction (n, s, w, e) or q to quit: ')
 	args = args.lower().split()
-	act = args[0]
+	try:
+		act = args[0]
+	except IndexError:
+		print("It looks like you didn't enter anything parseable.")
 
 	if act == 'q':
 		print("\nYou've exited the game. Goodbye.")
