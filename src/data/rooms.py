@@ -25,10 +25,7 @@ earlier adventurers. The only exit is to the south.'''),
 
 # Link rooms together
 rooms[outside].setDir('n', foyer)
-rooms[foyer].setDir('s', outside)
-rooms[foyer].setDir('n', overlook)
-rooms[foyer].setDir('e', narrow)
+rooms[foyer].setDirs(dict(s=outside, n=overlook, e=narrow))
 rooms[overlook].setDir('w', foyer)
-rooms[narrow].setDir('w', foyer)
-rooms[narrow].setDir('n', treasure)
+rooms[narrow].setDirs(dict(w=foyer, n=treasure))
 rooms[treasure].setDir('s', narrow)

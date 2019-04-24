@@ -42,8 +42,7 @@ while True:
 		break
 	if act in 'nswe':
 		try:
-			newRoom = pc.room.getDir(act)
-			pc.move(newRoom)
+			pc.move(act)
 		except KeyError:
 			print("The room doesn't seem to have an exit in that direction.")
 	elif act in commands[inventory]:

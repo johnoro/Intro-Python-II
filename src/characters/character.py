@@ -5,5 +5,5 @@ class Character:
     self.room = room
     self.items = items
 
-  def move(self, roomName):
-    self.room = rooms[roomName]
+  def move(self, direction):
+    self.room = rooms[self.room.getDir(direction)]
