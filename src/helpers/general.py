@@ -1,3 +1,6 @@
+def names(objectsWithNames):
+  return [o.name.lower() for o in objectsWithNames]
+
 def format_list(l, sep = ', '):
   return sep.join(l)
 

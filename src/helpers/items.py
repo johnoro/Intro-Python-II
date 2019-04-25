@@ -1,6 +1,3 @@
-def names(items):
-  return [i.name.lower() for i in items]
-
 def find(items, name):
   for i in items:
     if i.name == name:

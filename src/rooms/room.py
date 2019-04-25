@@ -1,5 +1,4 @@
-from helpers.general import format_list
-from helpers.items import names
+from helpers.general import format_list, names
 from helpers.rooms import new_directions
 
 # Implement a class to hold room information. This should have name and
@@ -17,7 +16,7 @@ class Room:
     dirs = f'\nAvailable directions: {format_list(dirs)}'
     items = names(self.items)
     items = f'\nItems: {format_list(items)}' if len(items) > 0 else ''
-    return self.name + items + dirs
+    return self.name + items + dirs + self.get_monsters()
 
   def get_dir(self, direction):
     return self.dirs[direction]
@@ -27,3 +26,9 @@ class Room:
 
   def set_dirs(self, dirs):
     self.dirs = new_directions(dirs)
+
+  def get_monsters(self):
+    from helpers.characters import get_monsters
+    mons = names(get_monsters(self))
+    mons = f'\nMonsters: {format_list(mons)}' if len(mons) > 0 else ''
+    return mons

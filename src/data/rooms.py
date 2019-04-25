@@ -4,8 +4,8 @@ overlook = 'overlook'
 narrow = 'narrow'
 treasure = 'treasure'
 
-from data.items import quantum_microscope, intellicorium_microscope, splitting_microscope
 from rooms.room import Room
+from data.items import quantum_microscope, intellicorium_microscope, splitting_microscope
 
 # Declare all the rooms
 rooms = {
@@ -26,6 +26,6 @@ earlier adventurers. The only exit is to the south.'''),
 # Link rooms together
 rooms[outside].set_dir('n', foyer)
 rooms[foyer].set_dirs(dict(s=outside, n=overlook, e=narrow))
-rooms[overlook].set_dir('w', foyer)
+rooms[overlook].set_dir('s', foyer)
 rooms[narrow].set_dirs(dict(w=foyer, n=treasure))
 rooms[treasure].set_dir('s', narrow)

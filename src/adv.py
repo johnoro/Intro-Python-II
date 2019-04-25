@@ -1,9 +1,8 @@
-from data.actions import actions, get, drop
+from data.actions import actions, get, drop, attack
 from data.commands import commands, inventory, q
 from data.characters import pc
-from helpers.general import format_list
-from helpers.items import names
-from adventure.actions import handle_get, handle_drop
+from helpers.general import format_list, names
+from adventure.actions import handle_get, handle_drop, handle_attack
 
 # Write a loop that:
 #
@@ -39,6 +38,8 @@ while True:
 			handle_get(pc.items, obj, pc.room)
 		elif act in actions[drop]:
 			handle_drop(pc.room.items, obj, pc)
+		elif act in actions[attack]:
+			handle_attack(pc, obj)
 		else:
 			print(f'{act} is not a currently implemented action.')
 
