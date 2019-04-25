@@ -5,4 +5,5 @@ quantum_microscope = Item('quantum microscope', 'A labelled microscope with odd 
 intellicorium_microscope = Item('intellicorium microscope', "A labelled microscope with so many inscriptions covering it that it's impossible to use.")
 splitting_microscope = Item('splitting microscope', "A labelled microscope with a few inscriptions. Its view seems to split with eight different lenses, which doesn't lend well to its usage.")
 
-pitchfork = Weapon(100, 'pitchfork', 'A stylish, devilish pitchfork with engravings covering its handle.', droppable=False)
+pitchfork = Weapon('pitchfork', 'A stylish, devilish pitchfork with engravings covering its handle.', damage=100, droppable=False)
+sword = Weapon('sword', 'A plain old sword.', damage=50)

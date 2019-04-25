@@ -5,7 +5,7 @@ narrow = 'narrow'
 treasure = 'treasure'
 
 from rooms.room import Room
-from data.items import quantum_microscope, intellicorium_microscope, splitting_microscope
+from data.items import quantum_microscope, intellicorium_microscope, splitting_microscope, sword
 
 # Declare all the rooms
 rooms = {
@@ -17,7 +17,7 @@ passages run north and east.'''),
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.''', [quantum_microscope, intellicorium_microscope, splitting_microscope]),
 	narrow: Room(narrow, 'Narrow Passage', '''The narrow passage bends here from west
-to north. The smell of gold permeates the air.'''),
+to north. The smell of gold permeates the air.''', [sword]),
 	treasure: Room(treasure, 'Treasure Chamber', '''You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.'''),

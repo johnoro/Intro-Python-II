@@ -1,3 +1,4 @@
+from items.weapon import Weapon
 from helpers.general import format_list_with_end, names, wrap
 from helpers.items import find_similar
 from data.characters import pc
@@ -59,6 +60,14 @@ def handle_attack(attacker, attackee):
     print("You've taken some serious damage!")
     return
 
+  for item in attacker.items:
+    if isinstance(item, Weapon):
+      # has_weapon = True
+      break
+  else:
+    print('You have no weapons. How do you expect to attack anything?')
+    return
+
   found = find_similar(monsters.values(), attackee)
   if isinstance(found, list):
     length = len(found)
@@ -72,11 +81,9 @@ def handle_attack(attacker, attackee):
 
   attackee = attackee.capitalize()
   if found is not None:
-    attacked = found.take_damage() # to use attacker.damage
+    attacked = found.take_damage(attacker.damage)
     if not attacked:
       print(f'{attackee} could not be attacked.')
-    else:
-      print(f'{attackee} attacked!')
   else:
     print(f'{attackee} not found.')
 
