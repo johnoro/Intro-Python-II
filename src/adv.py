@@ -26,8 +26,11 @@ while True:
 		print("It looks like you didn't enter anything parseable.")
 		continue
 
-	if len(args) == 2:
-		obj = args[1].lower()
+	if len(args) > 1:
+		obj = ' '.join(args[1:]).lower()
+		if obj == 'it':
+			obj = last
+		
 		if act in actions[get]:
 			handle_get(pc.items, obj, pc.room)
 		elif act in actions[drop]:
@@ -35,6 +38,7 @@ while True:
 		else:
 			print(f'{act} is not a currently implemented action.')
 
+		last = obj
 		continue
 
 	if act in commands[q]:
