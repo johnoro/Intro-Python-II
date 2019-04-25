@@ -1,8 +1,8 @@
 from helpers.general import format_list_with_end
-from helpers.items import find_by_base_name, names
+from helpers.items import find_similar, names
 
 def transfer_item(items, itemName, src, handle_transfer):
-  found = find_by_base_name(src.items, itemName)
+  found = find_similar(src.items, itemName)
 
   if isinstance(found, list):
     length = len(found)
