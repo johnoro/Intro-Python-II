@@ -1,4 +1,4 @@
-from helpers.items import removeAndMove
+from helpers.items import remove_and_move
 
 class Item:
   def __init__(self, name, description, takeable = True, droppable = True):
@@ -7,14 +7,14 @@ class Item:
     self.takeable = takeable
     self.droppable = droppable
 
-  def onTake(self, room, playerItems):
+  def on_take(self, room, player_items):
     if self.takeable:
-      removeAndMove(playerItems, self, room)
+      remove_and_move(player_items, self, room)
       return True
     return False
 
-  def onDrop(self, player, roomItems):
+  def on_drop(self, player, room_items):
     if self.droppable:
-      removeAndMove(roomItems, self, player)
+      remove_and_move(room_items, self, player)
       return True
     return False

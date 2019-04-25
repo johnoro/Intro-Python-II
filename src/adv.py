@@ -1,9 +1,9 @@
 from data.actions import actions, get, drop
 from data.commands import commands, inventory, q
 from data.characters import pc
-from helpers.general import formatList
+from helpers.general import format_list
 from helpers.items import names
-from adventure.actions import handleGet, handleDrop
+from adventure.actions import handle_get, handle_drop
 
 # Write a loop that:
 #
@@ -29,9 +29,9 @@ while True:
 	if len(args) == 2:
 		obj = args[1].lower()
 		if act in actions[get]:
-			handleGet(pc.items, obj, pc.room)
+			handle_get(pc.items, obj, pc.room)
 		elif act in actions[drop]:
-			handleDrop(pc.room.items, obj, pc)
+			handle_drop(pc.room.items, obj, pc)
 		else:
 			print(f'{act} is not a currently implemented action.')
 
@@ -46,7 +46,7 @@ while True:
 		except KeyError:
 			print("The room doesn't seem to have an exit in that direction.")
 	elif act in commands[inventory]:
-		print(f'Inventory: {formatList(names(pc.items))}')
+		print(f'Inventory: {format_list(names(pc.items))}')
 	else:
 		print("It looks like you didn't enter a cardinal direction.")
 

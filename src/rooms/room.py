@@ -1,6 +1,6 @@
-from helpers.general import formatList
+from helpers.general import format_list
 from helpers.items import names
-from helpers.rooms import newDirections
+from helpers.rooms import new_directions
 
 # Implement a class to hold room information. This should have name and
 # description attributes.
@@ -10,20 +10,20 @@ class Room:
     self.name = name
     self.description = description
     self.items = items
-    self.dirs = newDirections(dirs)
+    self.dirs = new_directions(dirs)
 
   def __str__(self):
-    dirs = [ d for d in self.dirs if self.dirs[d] is not None ]
-    dirs = f"\nAvailable directions: {formatList(dirs)}"
+    dirs = [d for d in self.dirs if self.dirs[d] is not None]
+    dirs = f'\nAvailable directions: {format_list(dirs)}'
     items = names(self.items)
-    items = f"\nItems: {formatList(items)}" if len(items) > 0 else ''
+    items = f'\nItems: {format_list(items)}' if len(items) > 0 else ''
     return self.name + items + dirs
 
-  def getDir(self, direction):
+  def get_dir(self, direction):
     return self.dirs[direction]
 
-  def setDir(self, direction, room):
+  def set_dir(self, direction, room):
     self.dirs[direction] = room
 
-  def setDirs(self, dirs):
-    self.dirs = newDirections(dirs)
+  def set_dirs(self, dirs):
+    self.dirs = new_directions(dirs)

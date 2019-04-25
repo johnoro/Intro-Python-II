@@ -1,35 +1,35 @@
 from helpers.items import find
 
-def transferItem(items, itemName, src, handleTransfer):
+def transfer_item(items, itemName, src, handle_transfer):
   found = find(src.items, itemName)
 
   if found is not None:
-    handleTransfer(found)
+    handle_transfer(found)
   else:
-    print(f'{itemName} not found.')
+    print(f'{itemName.capitalize()} not found.')
 
 
-def handleGet(playerItems, itemName, room):
-  def handleTake(found):
-    nonlocal playerItems, itemName, room
-    itemName = itemName.capitalize()
-    taken = found.onTake(room, playerItems)
+def handle_get(player_items, item_name, room):
+  def get(found):
+    nonlocal player_items, item_name, room
+    item_name = item_name.capitalize()
+    taken = found.on_take(room, player_items)
     if not taken:
-      print(f'{itemName} cannot be taken.')
+      print(f'{item_name} cannot be taken.')
     else:
-      print(f'{itemName} taken.')
+      print(f'{item_name} taken.')
   
-  transferItem(playerItems, itemName, room, handleTake)
+  transfer_item(player_items, item_name, room, get)
 
 
-def handleDrop(roomItems, itemName, player):
-  def handleDrop(found):
-    nonlocal roomItems, itemName, player
-    itemName = itemName.capitalize()
-    dropped = found.onDrop(player, roomItems)
+def handle_drop(room_items, item_name, player):
+  def drop(found):
+    nonlocal room_items, item_name, player
+    item_name = item_name.capitalize()
+    dropped = found.on_drop(player, room_items)
     if not dropped:
-      print(f'{itemName} cannot be dropped.')
+      print(f'{item_name} cannot be dropped.')
     else:
-      print(f'{itemName} dropped.')
+      print(f'{item_name} dropped.')
 
-  transferItem(roomItems, itemName, player, handleDrop)
+  transfer_item(room_items, item_name, player, drop)

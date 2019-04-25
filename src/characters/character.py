@@ -6,4 +6,4 @@ class Character:
     self.items = items
 
   def move(self, direction):
-    self.room = rooms[self.room.getDir(direction)]
+    self.room = rooms[self.room.get_dir(direction)]

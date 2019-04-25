@@ -13,6 +13,6 @@ def remove(items, name):
     items.remove(found)
   return found
 
-def removeAndMove(items, item, srcObj):
-  removed = remove(srcObj.items, item.name)
+def remove_and_move(items, item, src_obj):
+  removed = remove(src_obj.items, item.name)
   items.append(removed)

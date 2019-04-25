@@ -4,7 +4,7 @@ overlook = 'overlook'
 narrow = 'narrow'
 treasure = 'treasure'
 
-from data.items import quantumMicroscope
+from data.items import quantum_microscope
 from rooms.room import Room
 
 # Declare all the rooms
@@ -15,7 +15,7 @@ rooms = {
 passages run north and east.'''),
 	overlook: Room(overlook, 'Grand Overlook', '''A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.''', [quantumMicroscope]),
+the distance, but there is no way across the chasm.''', [quantum_microscope]),
 	narrow: Room(narrow, 'Narrow Passage', '''The narrow passage bends here from west
 to north. The smell of gold permeates the air.'''),
 	treasure: Room(treasure, 'Treasure Chamber', '''You've found the long-lost treasure
@@ -24,8 +24,8 @@ earlier adventurers. The only exit is to the south.'''),
 }
 
 # Link rooms together
-rooms[outside].setDir('n', foyer)
-rooms[foyer].setDirs(dict(s=outside, n=overlook, e=narrow))
-rooms[overlook].setDir('w', foyer)
-rooms[narrow].setDirs(dict(w=foyer, n=treasure))
-rooms[treasure].setDir('s', narrow)
+rooms[outside].set_dir('n', foyer)
+rooms[foyer].set_dirs(dict(s=outside, n=overlook, e=narrow))
+rooms[overlook].set_dir('w', foyer)
+rooms[narrow].set_dirs(dict(w=foyer, n=treasure))
+rooms[treasure].set_dir('s', narrow)
