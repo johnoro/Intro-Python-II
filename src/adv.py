@@ -29,8 +29,12 @@ while True:
 	if len(args) > 1:
 		obj = ' '.join(args[1:]).lower()
 		if obj == 'it':
-			obj = last
-		
+			try:
+				obj = last
+			except NameError:
+				print('"it" is not supported when there has been no items specified yet.')
+				continue
+
 		if act in actions[get]:
 			handle_get(pc.items, obj, pc.room)
 		elif act in actions[drop]:

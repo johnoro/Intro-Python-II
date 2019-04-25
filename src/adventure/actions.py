@@ -1,7 +1,18 @@
-from helpers.items import find
+from helpers.general import format_list_with_end
+from helpers.items import find_by_base_name, names
 
 def transfer_item(items, itemName, src, handle_transfer):
-  found = find(src.items, itemName)
+  found = find_by_base_name(src.items, itemName)
+
+  if isinstance(found, list):
+    length = len(found)
+    if length == 0:
+      found = None
+    elif length == 1:
+      found = found[0]
+    else:
+      print(f"I don't know which you mean: {format_list_with_end(names(found))}")
+      return
 
   if found is not None:
     handle_transfer(found)

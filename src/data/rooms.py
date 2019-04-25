@@ -4,7 +4,7 @@ overlook = 'overlook'
 narrow = 'narrow'
 treasure = 'treasure'
 
-from data.items import quantum_microscope
+from data.items import quantum_microscope, intellicorium_microscope, splitting_microscope
 from rooms.room import Room
 
 # Declare all the rooms
@@ -15,7 +15,7 @@ rooms = {
 passages run north and east.'''),
 	overlook: Room(overlook, 'Grand Overlook', '''A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.''', [quantum_microscope]),
+the distance, but there is no way across the chasm.''', [quantum_microscope, intellicorium_microscope, splitting_microscope]),
 	narrow: Room(narrow, 'Narrow Passage', '''The narrow passage bends here from west
 to north. The smell of gold permeates the air.'''),
 	treasure: Room(treasure, 'Treasure Chamber', '''You've found the long-lost treasure
