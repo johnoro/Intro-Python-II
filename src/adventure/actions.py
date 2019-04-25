@@ -89,6 +89,7 @@ def handle_attack(attacker, attackee):
     else:
       # use randBool general helper to
       # to possibly attack back
+      pass
   else:
     print(f'{attackee} not found.')
 

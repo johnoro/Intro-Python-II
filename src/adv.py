@@ -1,7 +1,7 @@
 from data.actions import actions, get, drop, attack, inspect
-from data.commands import commands, inventory, q
+from data.commands import commands, inventory, _quit, _help
 from data.characters import pc
-from helpers.general import format_list, names, wrap
+from helpers.general import format_list, names, wrap, flatten_object
 from adventure.actions import handle_get, handle_drop, handle_attack, handle_inspect
 
 # Write a loop that:
@@ -17,7 +17,7 @@ from adventure.actions import handle_get, handle_drop, handle_attack, handle_ins
 while True:
 	print(f'\n{pc.room}')
 	print(wrap(pc.room.description))
-	args = input('Enter a cardinal direction or q to quit: ')
+	args = input('Enter a cardinal direction or "h" for help: ')
 	args = args.lower().split()
 	try:
 		act = args[0]
@@ -48,7 +48,7 @@ while True:
 		last = obj
 		continue
 
-	if act in commands[q]:
+	if act in commands[_quit]:
 		print("\nYou've exited the game. Goodbye.")
 		break
 	if act in 'nswe':
@@ -58,6 +58,9 @@ while True:
 			print("The room doesn't seem to have an exit in that direction.")
 	elif act in commands[inventory]:
 		print(f'Inventory: {format_list(names(pc.items))}')
+	elif act in commands[_help]:
+		print(f'Possible commands: {format_list(flatten_object(commands))}')
+		print(f'Possible actions: {format_list(flatten_object(actions))}')
 	else:
 		print("It looks like you didn't enter a cardinal direction.")
 

@@ -15,3 +15,6 @@ def format_list_with_end(l, end = 'or'):
 from random import randint
 def randBool():
   return randint(0, 1) == 0
+
+def flatten_object(o):
+  return [item for k, sl in o.items() for item in sl]

@@ -1,6 +1,8 @@
 inventory = 'inventory'
-q = 'q'
+_quit = 'quit'
+_help = 'help'
 commands = {
   inventory: [inventory, 'i'],
-  q: [q]
+  _quit: [_quit, 'q'],
+  _help: [_help, 'h']
 }
