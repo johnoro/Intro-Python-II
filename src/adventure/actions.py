@@ -66,6 +66,8 @@ def handle_attack(attacker, attackee):
       break
   else:
     print('You have no weapons. How do you expect to attack anything?')
+    # use randBool general helper to
+    # to possibly attack the attacker
     return
 
   found = find_similar(monsters.values(), attackee)
@@ -84,6 +86,9 @@ def handle_attack(attacker, attackee):
     attacked = found.take_damage(attacker.damage)
     if not attacked:
       print(f'{attackee} could not be attacked.')
+    else:
+      # use randBool general helper to
+      # to possibly attack back
   else:
     print(f'{attackee} not found.')
 

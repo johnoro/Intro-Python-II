@@ -3,7 +3,7 @@ drop = 'drop'
 attack = 'attack'
 inspect = 'inspect'
 actions = {
-  get: [get, 'take'],
+  get: [get, 'take', 'pickup'],
   drop: [drop],
   attack: [attack],
   inspect: [inspect]
