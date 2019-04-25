@@ -1,3 +1,7 @@
+import textwrap
+def wrap(text, sep = '\n'):
+  return sep.join(textwrap.wrap(text))
+
 def names(objectsWithNames):
   return [o.name.lower() for o in objectsWithNames]
 

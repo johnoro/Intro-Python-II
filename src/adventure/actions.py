@@ -1,7 +1,13 @@
-from helpers.general import format_list_with_end, names
+from helpers.general import format_list_with_end, names, wrap
 from helpers.items import find_similar
 from data.characters import pc
 from data.characters import monsters
+
+def printMultiple(found):
+  print(wrap(
+    f"I don't know which you mean: {format_list_with_end(names(found))}"
+  ))
+
 
 def transfer_item(itemName, src, handle_transfer):
   found = find_similar(src.items, itemName)
@@ -13,7 +19,7 @@ def transfer_item(itemName, src, handle_transfer):
     elif length == 1:
       found = found[0]
     else:
-      print(f"I don't know which you mean: {format_list_with_end(names(found))}")
+      printMultiple(found)
       return
 
   if found is not None:
@@ -61,10 +67,10 @@ def handle_attack(attacker, attackee):
     elif length == 1:
       found = found[0]
     else:
-      print(f"I don't know which you mean: {format_list_with_end(names(found))}")
+      printMultiple(found)
       return
 
-  attackee.capitalize()
+  attackee = attackee.capitalize()
   if found is not None:
     attacked = found.take_damage() # to use attacker.damage
     if not attacked:
@@ -73,3 +79,24 @@ def handle_attack(attacker, attackee):
       print(f'{attackee} attacked!')
   else:
     print(f'{attackee} not found.')
+
+
+def handle_inspect(player, itemName):
+  items = player.room.items + player.items
+  
+  found = find_similar(items, itemName)
+  if isinstance(found, list):
+    length = len(found)
+    if length == 0:
+      found = None
+    elif length == 1:
+      found = found[0]
+    else:
+      printMultiple(found)
+      return
+  
+  itemName = itemName.capitalize()
+  if found is not None:
+    print(wrap(f'{itemName}: {found.description}'))
+  else:
+    print(f'{itemName} not found.')

@@ -1,8 +1,8 @@
-from data.actions import actions, get, drop, attack
+from data.actions import actions, get, drop, attack, inspect
 from data.commands import commands, inventory, q
 from data.characters import pc
-from helpers.general import format_list, names
-from adventure.actions import handle_get, handle_drop, handle_attack
+from helpers.general import format_list, names, wrap
+from adventure.actions import handle_get, handle_drop, handle_attack, handle_inspect
 
 # Write a loop that:
 #
@@ -16,7 +16,7 @@ from adventure.actions import handle_get, handle_drop, handle_attack
 # If the user enters 'q', quit the game.
 while True:
 	print(f'\n{pc.room}')
-	print(pc.room.description)
+	print(wrap(pc.room.description))
 	args = input('Enter a cardinal direction or q to quit: ')
 	args = args.lower().split()
 	try:
@@ -40,6 +40,8 @@ while True:
 			handle_drop(pc.room.items, obj, pc)
 		elif act in actions[attack]:
 			handle_attack(pc, obj)
+		elif act in actions[inspect]:
+			handle_inspect(pc, obj)
 		else:
 			print(f'{act} is not a currently implemented action.')
 
