@@ -1,33 +1,9 @@
 from items.weapon import Weapon
-from helpers.general import format_list_with_end, names, wrap
+from helpers.general import format_list_with_end, names, wrap, randBool
 from helpers.items import find_similar
+from helpers.adventure import printMultiple, transfer_item
 from data.characters import pc
 from data.characters import monsters
-
-def printMultiple(found):
-  print(wrap(
-    f"I don't know which you mean: {format_list_with_end(names(found))}"
-  ))
-
-
-def transfer_item(itemName, src, handle_transfer):
-  found = find_similar(src.items, itemName)
-
-  if isinstance(found, list):
-    length = len(found)
-    if length == 0:
-      found = None
-    elif length == 1:
-      found = found[0]
-    else:
-      printMultiple(found)
-      return
-
-  if found is not None:
-    handle_transfer(found)
-  else:
-    print(f'{itemName.capitalize()} not found.')
-
 
 def handle_get(player_items, item_name, room):
   def get(found):
@@ -66,8 +42,6 @@ def handle_attack(attacker, attackee):
       break
   else:
     print('You have no weapons. How do you expect to attack anything?')
-    # use randBool general helper to
-    # to possibly attack the attacker
     return
 
   found = find_similar(monsters.values(), attackee)
@@ -87,9 +61,9 @@ def handle_attack(attacker, attackee):
     if not attacked:
       print(f'{attackee} could not be attacked.')
     else:
-      # use randBool general helper to
-      # to possibly attack back
-      pass
+      if randBool():
+        attacker.take_damage(found.damage)
+        print(f'{attackee} fought back!')
   else:
     print(f'{attackee} not found.')
 

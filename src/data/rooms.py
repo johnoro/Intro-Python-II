@@ -9,7 +9,6 @@ treasure = 'treasure'
 from rooms.room import Room
 from data.items import quantum_microscope, intellicorium_microscope, splitting_microscope, sword
 
-# Declare all the rooms
 rooms = {
 	nest: Room(nest, 'Dragon\'s Nest', 'A stone-faced dragon lies dormant.'),
 	forest: Room(forest, 'Waywards Forest', 'Hoots and toots lie here.'),

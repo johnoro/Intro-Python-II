@@ -1,8 +1,6 @@
 from helpers.general import format_list, names
 from helpers.rooms import new_directions
 
-# Implement a class to hold room information. This should have name and
-# description attributes.
 class Room:
   def __init__(self, key, name, description, items = [], dirs = {}):
     self.key = key
