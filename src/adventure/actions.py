@@ -1,7 +1,7 @@
 from items.weapon import Weapon
-from helpers.general import format_list_with_end, names, wrap, randBool
+from helpers.general import format_list_with_end, names, wrap, rand_bool
 from helpers.items import find_similar
-from helpers.adventure import printMultiple, transfer_item
+from helpers.adventure import print_multiple, transfer_item
 from data.characters import pc
 from data.characters import monsters
 
@@ -52,7 +52,7 @@ def handle_attack(attacker, attackee):
     elif length == 1:
       found = found[0]
     else:
-      printMultiple(found)
+      print_multiple(found)
       return
 
   attackee = attackee.capitalize()
@@ -61,7 +61,7 @@ def handle_attack(attacker, attackee):
     if not attacked:
       print(f'{attackee} could not be attacked.')
     else:
-      if randBool():
+      if rand_bool():
         attacker.take_damage(found.damage)
         print(f'{attackee} fought back!')
   else:
@@ -69,10 +69,10 @@ def handle_attack(attacker, attackee):
 
 
 # add damage for weapons
-def handle_inspect(player, itemName):
+def handle_inspect(player, item_name):
   items = player.room.items + player.items
   
-  found = find_similar(items, itemName)
+  found = find_similar(items, item_name)
   if isinstance(found, list):
     length = len(found)
     if length == 0:
@@ -80,11 +80,11 @@ def handle_inspect(player, itemName):
     elif length == 1:
       found = found[0]
     else:
-      printMultiple(found)
+      print_multiple(found)
       return
   
-  itemName = itemName.capitalize()
+  item_name = item_name.capitalize()
   if found is not None:
-    print(wrap(f'{itemName}: {found.description}'))
+    print(wrap(f'{item_name}: {found.description}'))
   else:
-    print(f'{itemName} not found.')
+    print(f'{item_name} not found.')

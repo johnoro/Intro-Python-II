@@ -1,14 +1,14 @@
 from helpers.general import format_list_with_end, names, wrap
 from helpers.items import find_similar
 
-def printMultiple(found):
+def print_multiple(found):
   print(wrap(
     f"I don't know which you mean: {format_list_with_end(names(found))}"
   ))
 
 
-def transfer_item(itemName, src, handle_transfer):
-  found = find_similar(src.items, itemName)
+def transfer_item(item_name, src, handle_transfer):
+  found = find_similar(src.items, item_name)
 
   if isinstance(found, list):
     length = len(found)
@@ -17,10 +17,10 @@ def transfer_item(itemName, src, handle_transfer):
     elif length == 1:
       found = found[0]
     else:
-      printMultiple(found)
+      print_multiple(found)
       return
 
   if found is not None:
     handle_transfer(found)
   else:
-    print(f'{itemName.capitalize()} not found.')
+    print(f'{item_name.capitalize()} not found.')
