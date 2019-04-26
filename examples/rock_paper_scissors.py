@@ -1,79 +1,74 @@
-#import module we need
+# import module we need
 import random
 
-#file i/o functions for historical results
+# file i/o functions for historical results
 def load_results():
-    text_file = open("history.txt", "r")
-    history = text_file.read().split(",")
-    text_file.close()
-    return history
+	with open("history.txt", "r") as text_file:
+		history = text_file.read().split(",")
+	return history
 
 def save_results( w, t, l):
-    text_file = open("history.txt", "w")
-    text_file.write( str(w) + "," + str(t) + "," + str(l))
-    text_file.close()
-
-#welcome message
-results = load_results()
-wins = int(results[0])
-ties = int( results[1])
-losses = int(results[2])
-print("Welcome to Rock, Paper, Scissors!")
-print("Wins: %s, Ties: %s, Losses: %s" % (wins, ties, losses))
-print("Please choose to continue...")
+	with open("history.txt", "w") as text_file:
+		text_file.write(f'{w},{t},{l}')
 
 
-#initialize user, computer choices
-computer = random.randint(1,3)
-user = int(input("[1] Rock  [2] Paper   [3] Scissors    [9] Quit\n"))
+def user_win():
+	global wins
+	wins += 1
+	return "you win :)"
 
-#gamplay loop
+def tie():
+	global ties
+	ties += 1
+	return 'tie!'
+
+def computer_win():
+	global losses
+	losses += 1
+	return "computer wins :("
+
+
+rps = [0, 'rock', 'paper', 'scissors']
+
+def rpsgame(user, comp):
+	user = rps[user]
+	comp = rps[comp]
+	def printResult(result): print(f'Computer chose {comp}...{result}')
+
+	if user == comp:
+		printResult(tie())
+	elif (user == 'rock' and comp == 'scissors') \
+			or (user == 'paper' and comp == 'rock') \
+			or (user == 'scissors' and comp == 'paper'):
+		printResult(user_win())
+	else:
+		printResult(computer_win())
+
+	print()
+
+
+results = map(int, load_results())
+wins, ties, losses = results
+print('Welcome to Rock, Paper, Scissors!')
+
+def next_round():
+	global computer, user, wins, ties, losses
+
+	print('Wins: %s, Ties: %s, Losses: %s' % (wins, ties, losses))
+	print('Please choose to continue...')
+
+	computer = random.randint(1,3)
+	user = int(input('[1] Rock  [2] Paper   [3] Scissors    [9] Quit\n'))
+
+
+next_round()
+
+# gameplay loop
 while not user == 9:
-    #user chooses ROCK
-    if user == 1:
-        if computer == 1:
-            print("Computer chose rock...tie!")
-            ties += 1
-        elif computer == 2:
-            print("Computer chose paper...computer wins :(")
-            losses += 1
-        else:
-            print("Computer chose scissors...you wins :)")
-            wins += 1
+	if user not in range(1, 4):
+		print("Invalid selection. Please try again.")
+	else:
+		rpsgame(user, computer)
+	next_round()
 
-    #user chooses PAPER
-    elif user == 2:
-        if computer == 1:
-            print("Computer chose rock...you win :)")
-            wins += 1
-        elif computer == 2:
-            print("Computer chose paper...tie!")
-            ties += 1
-        else:
-            print("Computer chose scissors...computer wins :(")
-            losses += 1
-    
-    #user chooses SCISSORS
-    elif user == 3:
-        if computer == 1:
-            print("Computer chose rock...computer wins :(")
-            losses += 1
-        elif computer == 2:
-            print("Computer chose paper...you win :)")
-            wins += 1
-        else:
-            print("Computer chose scissors...tie!")
-            ties += 1
-    else:
-        print("Invalid selection. Please try again.")
-    #print updated stats
-    print("Wins: %s, Ties: %s, Losses: %s" % (wins, ties, losses))
-
-    #prompt user to make another selection
-    print("Please choose to continue...")
-    #initialize user, computer choices
-    computer = random.randint(1,3)
-    user = int(input("[1] Rock  [2] Paper   [3] Scissors    [9] Quit\n"))
-
-# #game over, save results
 save_results(wins, ties, losses)

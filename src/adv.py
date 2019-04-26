@@ -1,51 +1,57 @@
-from room import Room
+from data.actions import actions, get, drop, attack, inspect
+from data.commands import commands, inventory, _quit, _help
+from data.characters import pc
+from helpers.general import format_list, names, wrap, flatten_object
+from adventure.actions import handle_get, handle_drop, handle_attack, handle_inspect
 
-# Declare all the rooms
+while True:
+	print(f'\n{pc.room}')
+	print(wrap(pc.room.description))
+	args = input('Enter a cardinal direction or h for help: ')
+	args = args.lower().split()
+	try:
+		act = args[0]
+	except IndexError:
+		print("It looks like you didn't enter anything parseable.")
+		continue
 
-room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+	if len(args) > 1:
+		obj = ' '.join(args[1:]).lower()
+		if obj == 'it':
+			try:
+				obj = last
+			except NameError:
+				print('"it" is not supported when there has been no items specified yet.')
+				continue
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+		if act in actions[get]:
+			handle_get(pc.items, obj, pc.room)
+		elif act in actions[drop]:
+			handle_drop(pc.room.items, obj, pc)
+		elif act in actions[attack]:
+			handle_attack(pc, obj)
+		elif act in actions[inspect]:
+			handle_inspect(pc, obj)
+		else:
+			print(f'{act} is not a currently implemented action.')
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+		last = obj
+		continue
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+	if act in commands[_quit]:
+		print("\nYou've exited the game. Goodbye.")
+		break
+	if act in 'nswe':
+		try:
+			pc.move(act)
+		except KeyError:
+			print("The room doesn't seem to have an exit in that direction.")
+	elif act in commands[inventory]:
+		print(f'Inventory: {format_list(names(pc.items))}')
+	elif act in commands[_help]:
+		print(f'Possible commands: {format_list(flatten_object(commands))}')
+		print(f'Possible actions: {format_list(flatten_object(actions))}')
+	else:
+		print("It looks like you didn't enter a cardinal direction.")
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
-}
-
-
-# Link rooms together
-
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
-
-#
-# Main
-#
-
-# Make a new player object that is currently in the 'outside' room.
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+print()
