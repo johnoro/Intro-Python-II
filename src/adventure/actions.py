@@ -94,6 +94,7 @@ def handle_attack(attacker, attackee):
     print(f'{attackee} not found.')
 
 
+# add damage for weapons
 def handle_inspect(player, itemName):
   items = player.room.items + player.items
   

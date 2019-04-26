@@ -1,3 +1,5 @@
+nest = 'nest'
+forest = 'forest'
 outside = 'outside'
 foyer = 'foyer'
 overlook = 'overlook'
@@ -9,6 +11,8 @@ from data.items import quantum_microscope, intellicorium_microscope, splitting_m
 
 # Declare all the rooms
 rooms = {
+	nest: Room(nest, 'Dragon\'s Nest', 'A stone-faced dragon lies dormant.'),
+	forest: Room(forest, 'Waywards Forest', 'Hoots and toots lie here.'),
 	outside: Room(outside, 'Outside Cave Entrance',
 								'North of you, the cave mount beckons.'),
 	foyer: Room(foyer, 'Foyer', '''Dim light filters in from the south. Dusty
@@ -24,7 +28,9 @@ earlier adventurers. The only exit is to the south.'''),
 }
 
 # Link rooms together
-rooms[outside].set_dir('n', foyer)
+rooms[nest].set_dir('n', forest)
+rooms[forest].set_dirs(dict(n=outside, s=nest))
+rooms[outside].set_dirs(dict(n=foyer, s=forest))
 rooms[foyer].set_dirs(dict(s=outside, n=overlook, e=narrow))
 rooms[overlook].set_dir('s', foyer)
 rooms[narrow].set_dirs(dict(w=foyer, n=treasure))
