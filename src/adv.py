@@ -7,7 +7,7 @@ from adventure.actions import handle_get, handle_drop, handle_attack, handle_ins
 while True:
 	print(f'\n{pc.room}')
 	print(wrap(pc.room.description))
-	args = input('Enter a cardinal direction or "h" for help: ')
+	args = input('Enter a cardinal direction or h for help: ')
 	args = args.lower().split()
 	try:
 		act = args[0]
