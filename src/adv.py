@@ -1,5 +1,5 @@
 from data.actions import actions, get, drop, attack, inspect
-from data.commands import commands, inventory, _quit, _help
+from data.commands import commands, inventory, score, _quit, _help
 from data.characters import pc
 from helpers.general import format_list, names, wrap, flatten_object
 from adventure.actions import handle_get, handle_drop, handle_attack, handle_inspect
@@ -25,9 +25,9 @@ while True:
 				continue
 
 		if act in actions[get]:
-			handle_get(pc.items, obj, pc.room)
+			handle_get(pc, obj, pc.room)
 		elif act in actions[drop]:
-			handle_drop(pc.room.items, obj, pc)
+			handle_drop(pc.room, obj, pc)
 		elif act in actions[attack]:
 			handle_attack(pc, obj)
 		elif act in actions[inspect]:
@@ -48,6 +48,8 @@ while True:
 			print("The room doesn't seem to have an exit in that direction.")
 	elif act in commands[inventory]:
 		print(f'Inventory: {format_list(names(pc.items))}')
+	elif act in commands[score]:
+		print(f'Score: {pc.score}')
 	elif act in commands[_help]:
 		print(f'Possible commands: {format_list(flatten_object(commands))}')
 		print(f'Possible actions: {format_list(flatten_object(actions))}')

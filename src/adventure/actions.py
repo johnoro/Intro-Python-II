@@ -5,11 +5,11 @@ from helpers.adventure import print_multiple, transfer_item
 from data.characters import pc
 from data.characters import monsters
 
-def handle_get(player_items, item_name, room):
+def handle_get(player, item_name, room):
   def get(found):
-    nonlocal player_items, item_name, room
+    nonlocal player, item_name, room
     item_name = item_name.capitalize()
-    taken = found.on_take(room, player_items)
+    taken = found.on_take(room, player)
     if not taken:
       print(f'{item_name} cannot be taken.')
     else:
@@ -18,11 +18,11 @@ def handle_get(player_items, item_name, room):
   transfer_item(item_name, room, get)
 
 
-def handle_drop(room_items, item_name, player):
+def handle_drop(room, item_name, player):
   def drop(found):
-    nonlocal room_items, item_name, player
+    nonlocal room, item_name, player
     item_name = item_name.capitalize()
-    dropped = found.on_drop(player, room_items)
+    dropped = found.on_drop(player, room)
     if not dropped:
       print(f'{item_name} cannot be dropped.')
     else:
